@@ -2,6 +2,4 @@
 
 ## Unit Testing
 
-## Authentication
-
 ## Method Definitions
