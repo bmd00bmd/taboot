@@ -8,22 +8,56 @@ module.exports = PNetPlus;
 
 function PNetPlus () {
     this.pnet = {
+        api: {
+          authorize: function(apiKey, username, pwd, cb) {
+            // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorize&apikey=YOURAPIKEY&username=USERNAME&passwd=USERPASSWORD
+            var opt = 'method=pnet.api.authorize&apikey='+apiKey+'&username='+username+'&passwd='+pwd;
+            MakeHttpsRequest(opt, function(err, data){
+                if(err){
+                    cb(err);
+                    return;
+                }
+                cb(null, data);
+            });
+          },
+          authorized: {
+              check: function(apikey, username, cb) {
+                  // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorized.check&apikey=YOURAPIKEY&username=USERNAME
+              }
+          },
+          authkey: {
+              get: function(apikey, username) {
+                 // https://api.phish.net/api.js?api=2.0&method=pnet.api.authkey.get&apikey=YOURAPIKEY&username=USERNAME
+              }
+          }
+        },
         blog: {
             get: function(cb){
                 // Public
                 var opts = 'method=pnet.blog.get'
+                // console.log("blog.getting...")
                 MakeHttpsRequest(opts, function(err, data) {
                     if(err){
-                        return err;
+                        cb(err);
+                        return;
                     }
-                    return data;
+                    cb(null, data);
                 });
             },
             item: {
                 get: function(id, cb){
                     // Public
                     // https://api.phish.net/api.js?api=2.0&method=pnet.blog.item.get&format=json&id=12345
-                    return {};
+                    var opts = 'method=pnet.blog.item.get&id='+id;
+                    // console.log("blog.item.getting..." + id);
+                    // console.log(apikey);
+                    MakeHttpsRequest(opts, function(err, data) {
+                        if(err){
+                            cb(err);
+                            return;
+                        }
+                        cb(null, data);
+                    });
                 }
             }
         },
@@ -195,14 +229,15 @@ function MakeHttpsRequest(pnet_opts, cb){
     
     var https_options = {
         hostname: 'api.phish.net',
-        port: 80,
-        path: '/api.js?api=2.0&' + pnet_opts,
+        path: '/api.json?api=2.0&' + pnet_opts,
         method: 'POST'
     }
     
+    // console.log('Making https request...')
+    // console.log(https_options.hostname + https_options.path);
     var req = https.request(https_options, (res) => {
-        console.log('statusCode:', res.statusCode);
-        console.log('headers:', res.headers);
+        // console.log('statusCode:', res.statusCode);
+        // console.log('headers:', res.headers);
         res.on('data', (d) => {
             cb(null, d);
         });
@@ -215,10 +250,16 @@ function MakeHttpsRequest(pnet_opts, cb){
     req.end();
 }
 
-PNetPlus.prototype.Authorize = function(apiKey, username, pwd) {
+PNetPlus.prototype.Authorize = function(apiKey, username, pwd, cb) {
     // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorize&apikey=YOURAPIKEY&username=USERNAME&passwd=USERPASSWORD
-    var user = "";
-    return {};
+    var opt = 'method=pnet.api.authorize&apikey='+'DAA9CEDD328875F4542'+'&username'+username+'&passwd='+pwd;
+    MakeHttpsRequest(opt, function(err, data){
+        if(err){
+            cb(err);
+            return;
+        }
+        cb(data);
+    });
 }
 
 PNetPlus.prototype.Options = function(method, apiKey){

@@ -2,7 +2,7 @@
 logs
 *.log
 npm-debug.log*
-
+test.kicker.*
 # Runtime data
 pids
 *.pid
