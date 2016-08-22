@@ -12,8 +12,7 @@ A stateless Node.js npm module for accessing the Phish.net API. Uses HTTPS POST 
     - http://api.phish.net/callbacks/
  * Method signatures begin with 'apikey' where required and end with your node callback and api callback respectively
     - Additional parameters fall between 'apikey' and 'cb' in method signatures
-    - Protected method signature: 
-        - `function(apikey, username, authkey, showdate, rating, cb, pnetcb){}`
+
 ---
 
 ### Example
