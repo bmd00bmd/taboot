@@ -6,7 +6,8 @@ A stateless Node.js npm module for accessing the Phish.net API. Uses HTTPS POST 
 
 `var pnet = new PNetPlus().pnet`
 
- * Retains the "http://api.phish.net/docu" namespace heirarchy
+ * Retains the "http://api.phish.net/docu" namespace 
+ * There is no additional API argument validation, garbage in garbage out
  * Optional custom callbacks to the api are supported where allowed
     - A Phish.net Callback ('pnetcb') will be passed as a query argument to the api
     - http://api.phish.net/callbacks/
