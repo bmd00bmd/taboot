@@ -3,9 +3,9 @@ var expect = chai.expect;
 var PNetPlus = require('./../pnetplus');
 
 // Credentials 
-const username = '-';
-const pwd = '-';
-const apikey = '-';
+const username = 'peacey';
+const pwd = 'aS1ira';
+const apikey = '7951DDC019D786538DE1';
 
 // Anti success
 const failure = 0;
