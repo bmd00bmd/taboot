@@ -240,18 +240,28 @@ function PNetPlus () {
 
 // HTTPS Module
 function Request(pnet_opts, cb){
+    var results = "";
+    
     var https_options = {
         hostname: 'api.phish.net',
         path: '/api.json?api=2.0&' + pnet_opts,
         method: 'POST'
     }
     var req = https.request(https_options, (res) => {
-        res.on('data', (d) => {
-            cb(null, d);
+        res.on('data', (data) => {
+            var chunk = data || "";
+            results += chunk;
+        });
+        
+        res.on('end', function() {
+            var obj = JSON.parse(results);
+            cb(null, obj);
+        });
+        
+        req.on('error', (e) => {
+            cb(e);  
         });
     });
-    req.on('error', (e) => {
-        cb(e);  
-    });
+    
     req.end();
 }
