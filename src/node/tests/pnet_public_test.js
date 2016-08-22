@@ -2,16 +2,14 @@ var chai = require('chai');
 var expect = chai.expect;
 var PNetPlus = require('./../pnetplus');
 
- describe('pnetplus', function() {
-     it('getLatestSet() returns the single latest setlist', function() {
-        var pnetplus = new PNetPlus();
-        var result = pnetplus.GetLatestSet();
-        expect(result).to.equal(0);
+ describe('Public Tests', function() {
+     it("pnet.blog.get()", function() {
+         var pnet = new PNetPlus().pnet;
+         expect(pnet.blog.get()['success']).to.equal(1);
      });
      
-     it('getSetlist() returns one setlist that is passed as an arg', function() {
-        var pnetplus = new PNetPlus();
-        var result = pnetplus.GetSet('07/19/2016');
-        expect(result).to.equal('07/19/2016');
+     it("pnet.blog.item.get()", function() {
+         var pnet = new PNetPlus().pnet;
+         expect(pnet.blog.item.get('2341')['success']).to.equal(1);
      });
  });
