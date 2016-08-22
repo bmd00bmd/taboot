@@ -12,7 +12,7 @@ function PNetPlus () {
           authorize: function(apiKey, username, pwd, cb) {
             // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorize&apikey=YOURAPIKEY&username=USERNAME&passwd=USERPASSWORD
             var opt = 'method=pnet.api.authorize&apikey='+apiKey+'&username='+username+'&passwd='+pwd;
-            MakeHttpsRequest(opt, function(err, data){
+            Request(opt, function(err, data){
                 if(err){
                     cb(err);
                     return;
@@ -36,7 +36,7 @@ function PNetPlus () {
                 // Public
                 var opts = 'method=pnet.blog.get'
                 // console.log("blog.getting...")
-                MakeHttpsRequest(opts, function(err, data) {
+                Request(opts, function(err, data) {
                     if(err){
                         cb(err);
                         return;
@@ -51,7 +51,7 @@ function PNetPlus () {
                     var opts = 'method=pnet.blog.item.get&id='+id;
                     // console.log("blog.item.getting..." + id);
                     // console.log(apikey);
-                    MakeHttpsRequest(opts, function(err, data) {
+                    Request(opts, function(err, data) {
                         if(err){
                             cb(err);
                             return;
@@ -225,7 +225,7 @@ function PNetPlus () {
     }
 }
 
-function MakeHttpsRequest(pnet_opts, cb){
+function Request(pnet_opts, cb){
     
     var https_options = {
         hostname: 'api.phish.net',
@@ -248,25 +248,4 @@ function MakeHttpsRequest(pnet_opts, cb){
     });
     
     req.end();
-}
-
-PNetPlus.prototype.Authorize = function(apiKey, username, pwd, cb) {
-    // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorize&apikey=YOURAPIKEY&username=USERNAME&passwd=USERPASSWORD
-    var opt = 'method=pnet.api.authorize&apikey='+'DAA9CEDD328875F4542'+'&username'+username+'&passwd='+pwd;
-    MakeHttpsRequest(opt, function(err, data){
-        if(err){
-            cb(err);
-            return;
-        }
-        cb(data);
-    });
-}
-
-PNetPlus.prototype.Options = function(method, apiKey){
-    return {
-        hostname: 'api.phish.net',
-        path: '/api.js?api=2.0&method=pnet.',
-        method: method ? method:"POST",
-        apiKey: apiKey
-    }
 }
