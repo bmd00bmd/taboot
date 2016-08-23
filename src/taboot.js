@@ -75,13 +75,13 @@ function Taboot (apikey) {
         news: {
             get: function(cb, pnetcb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.news.get&format=json&callback=YourCallbackFunction
-                var opt = 'method=pnet.news.get' + pnetcb ? '&callback=' + pnetcb : '';
+                var opt = 'method=pnet.news.get' + (pnetcb ? '&callback=' + pnetcb : '');
                 Request(opt, cb);
             },
             comments: {
                 get: function(cb, pnetcb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.news.comments.get&format=json&callback=YourCallbackFunction
-                    var opt = 'method=pnet.news.comments.get' + pnetcb ? '&callback=' + pnetcb : '';
+                    var opt = 'method=pnet.news.comments.get' + (pnetcb ? '&callback=' + pnetcb : '');
                     Request(opt, cb);
                 }   
             }
@@ -89,7 +89,7 @@ function Taboot (apikey) {
         reviews: {
             recent: function(cb, pnetcb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.reviews.recent&format=json&callback=YourCallbackFunction
-                var opt = 'method=pnet.reviews.recent' + pnetcb ? '&callback=' + pnetcb : '';
+                var opt = 'method=pnet.reviews.recent' + (pnetcb ? '&callback=' + pnetcb : '');
                 Request(opt, cb);
             },
             query: function(username, showdate, cb, pnetcb){
@@ -248,8 +248,7 @@ function Request(pnet_opts, cb){
     }
     var req = https.request(https_options, (res) => {
         res.on('data', (data) => {
-            var chunk = data || "";
-            results += chunk;
+            results += data;
         });
         
         res.on('end', function() {

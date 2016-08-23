@@ -9,7 +9,7 @@ var Taboot = require('taboot');
 var pnet = new Taboot(apikey).pnet
 ```
 
- * Retains the 'http://api.phish.net/docu' namespace 
+ * Retains the http://api.phish.net/docu namespace 
  * While the response is parsed into a JSON object, there is no additional API argument validation, garbage in garbage out
  * Optional custom callbacks to the api are supported where allowed
     - An optional Phish.net Callback ('pnetcb' in Taboot) can be passed as a query argument to wrap the raw json response data before coming back from Phish.net servers
