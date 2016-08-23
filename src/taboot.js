@@ -7,13 +7,10 @@ const https = require('https');
 
 module.exports = Taboot;
 function Taboot (apikey) {
-    // var apikey = process.env['PNET_APIKEY'];
-    // console.log('ApiKey env: ' + apikey)
     this.pnet = {
         api: {
           authorize: function(username, pwd, cb) {
             // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorize&apikey=YOURAPIKEY&username=USERNAME&passwd=USERPASSWORD
-            console.log("Apikey param: " + apikey);
             var opt = 'method=pnet.api.authorize&apikey=' + apikey + '&username=' + username + '&passwd=' + pwd;
             Request(opt, cb);
           },
