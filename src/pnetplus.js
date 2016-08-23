@@ -255,6 +255,7 @@ function Request(pnet_opts, cb){
         
         res.on('end', function() {
             var obj = JSON.parse(results);
+            // console.log(obj);
             cb(null, obj);
         });
         

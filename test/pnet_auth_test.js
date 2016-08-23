@@ -1,6 +1,6 @@
 var chai = require('chai');
 var expect = chai.expect;
-var PNetPlus = require('./../pnetplus');
+var PNetPlus = require('./../src/pnetplus');
 
 // Credentials 
 const username = '-';
@@ -14,7 +14,7 @@ const failure = 0;
      it('pnet.api.authorize()', function(done) {
         var pnet = new PNetPlus().pnet;
         pnet.api.authorize(apikey, username, pwd, function(err, data) {
-            expect(JSON.parse(data)['success']).to.equal(1);  
+            expect(data['success']).to.equal(1);  
             done();
         });  
      });
