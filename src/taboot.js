@@ -50,9 +50,9 @@ function Taboot (apikey) {
                 Request(opt, cb);
             },
             thread: {
-                get: function(cb){
+                get: function(threadid, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.forum.get&apikey=YOURAPIKEY&format=json
-                    var opt = 'method=pnet.forum.get&apikey=' + apikey;
+                    var opt = 'method=pnet.forum.get&apikey=' + apikey + '&threadid=' + threadid;
                     Request(opt, cb);
                 },
                 new: function(username, title, body, authkey, cb){
@@ -116,9 +116,9 @@ function Taboot (apikey) {
                     var opt = 'method=pnet.shows.setlists.recent' + (pnetcb ? '&callback=' + pnetcb : '');
                     Request(opt, cb);
                 },
-                get: function(cb, pnetcb){
+                get: function(showdate, showid, cb, pnetcb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.shows.setlists.get&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction
-                    var opt = 'method=pnet.shows.setlists.get&apikey=' + apikey + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.shows.setlists.get&apikey=' + apikey + (showdate ? '&showdate=' + showdate : '') + (showid ? '&showid=' + showid : '') + (pnetcb ? '&callback=' + pnetcb : '');
                     Request(opt, cb);
                 },
                 tiph: function(cb, pnetcb){
@@ -195,9 +195,9 @@ function Taboot (apikey) {
                 }
             },
             myshows: {
-                get: function(cb, pnetcb){
+                get: function(username, usernames, cb, pnetcb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.user.myshows.get&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction
-                    var opt = 'method=pnet.user.myshows.get&apikey=' + apikey + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.user.myshows.get&apikey=' + apikey + '&username=' + username + (usernames ? '&usernames=' + usernames : '') + (pnetcb ? '&callback=' + pnetcb : '');
                     Request(opt, cb);
                 },
                 add: function(username, authkey, showdate, cb){
