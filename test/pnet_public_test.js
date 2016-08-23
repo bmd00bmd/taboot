@@ -4,6 +4,7 @@ var Taboot = require('./../src/taboot');
 var chaiHttp = require('chai-http');
 
  describe('Public Tests', function() {
+     
     var apikey = '-';
  
     it("pnet.blog.get()", function(done) {
