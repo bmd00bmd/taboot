@@ -1,6 +1,6 @@
 {
   "name": "taboot",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Stateless Phish.net API wrapper",
   "main": "./src/taboot.js",
   "scripts": {
