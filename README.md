@@ -20,8 +20,8 @@ var pnet = new Taboot(apikey).pnet
 
 ### Example
 ```
-var Taboot = require('taboot');
 // pass your apikey as a param to the Taboot constructor, 'pnet' mirrors the api documentation
+var Taboot = require('taboot');
 var pnet = new Taboot(process.env['PNET_APIKEY']).pnet;
 
 function authorize(username, pwd){
@@ -30,7 +30,7 @@ function authorize(username, pwd){
             console.log("Error " + err)
             return;
         }
-        console.log(JSON.parse(data)['authkey']);
+        console.log((data)['authkey']);
     });  
 }
 ```
