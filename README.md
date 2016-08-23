@@ -24,8 +24,8 @@ var Taboot = require('taboot');
 // pass your apikey as a param to the Taboot constructor, 'pnet' mirrors the api documentation
 var pnet = new Taboot(process.env['PNET_APIKEY']).pnet;
 
-function authorize(apikey, username, pwd){
-    pnet.api.authorize(apikey, username, pwd, function(err, data) {
+function authorize(username, pwd){
+    pnet.api.authorize(username, pwd, function(err, data) {
         if(err){
             console.log("Error " + err)
             return;
