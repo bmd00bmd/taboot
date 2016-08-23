@@ -1,8 +1,8 @@
 {
   "name": "taboot",
   "version": "0.0.1",
-  "description": "Phish.net API wrapper",
-  "main": "pnetplus.js",
+  "description": "Stateless Phish.net API wrapper",
+  "main": "./src/taboot.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
