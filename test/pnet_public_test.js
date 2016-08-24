@@ -47,6 +47,14 @@ var chaiHttp = require('chai-http');
         });
     });
     
+    it("pnet.shows.upcoming()", function(done) {
+        var pnet = new Taboot(apikey).pnet;
+        pnet.shows.upcoming(function(err, data) {
+            expect(data.length).to.be.above(1);
+            done();
+        });        
+    });
+    
     it("pnet.shows.setlists.latest()", function(done) {
         var pnet = new Taboot(apikey).pnet;
         var nonlinked = -1;

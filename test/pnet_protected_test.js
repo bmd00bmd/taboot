@@ -8,23 +8,26 @@ var chaiHttp = require('chai-http');
     const apikey = '';
     const username = '';
     const userid = ''
+    
+    // Same show
     const showdate = '2015/08/22';
-    const showid = '';
+    const showid = '1426718300';
+    
     const collectionid = '';
     
     it("pnet.forum.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
         pnet.forum.get(function(err, data) {
-            expect(data).to.not.equal(undefined);
+            expect(data[0]['threadid']).to.be.above(100);
             done();
         });
     });
     
     it("pnet.forum.thread.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        var threadid = 12345
+        var threadid = 123456789
         pnet.forum.thread.get(threadid, function(err, data) {
-            expect(data).to.not.equal(undefined);
+            expect(data[0]['username']).to.equal("Phish.net");
             done();
         });        
     });
@@ -32,11 +35,12 @@ var chaiHttp = require('chai-http');
     it("pnet.forum.canpost()", function(done) {
         var pnet = new Taboot(apikey).pnet;
         pnet.forum.canpost(username, function(err, data) {
-            expect(data).to.not.equal(undefined);
+            expect(data['canpost']).to.equal(1);
             done();
         });        
     });
     
+    // TODO: This is not working!
     it("pnet.reviews.query()", function(done) {
         var pnet = new Taboot(apikey).pnet;
         pnet.reviews.query(username, showdate, function(err, data) {
@@ -45,12 +49,13 @@ var chaiHttp = require('chai-http');
         });        
     });
     
+    
     it("pnet.shows.setlists.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        // You must pass either an showdate or a showid for this method to work. 
+        // You must pass either a showdate or a showid for this method to work. 
         // In case of conflict, the showid will win.
-        pnet.shows.setlists.get(showdate, showid, function(err, data) {
-            expect(data).to.not.equal(undefined);
+        pnet.shows.setlists.get(showdate, function(err, data) {
+            expect(data[0]['showid']).to.equal('1426718300');
             done();
         });        
     });
@@ -58,19 +63,12 @@ var chaiHttp = require('chai-http');
     it("pnet.shows.links.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
         pnet.shows.links.get(showid, function(err, data) {
-            expect(data).to.not.equal(undefined);
+            expect(data[0]['type']).to.not.equal('Audience Recording');
             done();
         });        
     });
     
-    it("pnet.shows.upcoming()", function(done) {
-        var pnet = new Taboot(apikey).pnet;
-        pnet.shows.upcoming(function(err, data) {
-            expect(data).to.not.equal(undefined);
-            done();
-        });        
-    });
-    
+    // This not working!!
     it("pnet.shows.query()", function(done) {
         var pnet = new Taboot(apikey).pnet;
         // supports optional parameters
