@@ -4,6 +4,8 @@
 
 A stateless Node.js npm module for accessing the Phish.net API. Uses HTTPS POST only, targeting API v2.0 and JSON format
 
+Available through npm: https://www.npmjs.com/package/taboot
+
 ```
 var Taboot = require('taboot');
 var pnet = new Taboot(apikey).pnet
