@@ -9,22 +9,22 @@ module.exports = Taboot;
 function Taboot (apikey) {
     this.pnet = {
         api: {
-          authorize: function(username, pwd, cb) {
+          authorize: function(options, cb) {
             // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorize&apikey=YOURAPIKEY&username=USERNAME&passwd=USERPASSWORD
-            var opt = 'method=pnet.api.authorize&apikey=' + apikey + '&username=' + username + '&passwd=' + pwd;
+            var opt = 'method=pnet.api.authorize&apikey=' + apikey + '&username=' + options.username + '&passwd=' + options.pwd;
             Request(opt, cb);
           },
           authorized: {
-              check: function(username, cb) {
+              check: function(options, cb) {
                   // https://api.phish.net/api.js?api=2.0&method=pnet.api.authorized.check&apikey=YOURAPIKEY&username=USERNAME
-                  var opt = 'method=pnet.api.authorized.check&apikey=' + apikey + '&username=' + username;
+                  var opt = 'method=pnet.api.authorized.check&apikey=' + apikey + '&username=' + options.username;
                   Request(opt, cb);
               }
           },
           authkey: {
-              get: function(username, cb) {
+              get: function(options, cb) {
                  // https://api.phish.net/api.js?api=2.0&method=pnet.api.authkey.get&apikey=YOURAPIKEY&username=USERNAME
-                 var opt = 'method=pnet.api.authkey.get&apikey=' + apikey + '&username=' + username;
+                 var opt = 'method=pnet.api.authkey.get&apikey=' + apikey + '&username=' + options.username;
                  Request(opt, cb);
               }
           }
@@ -36,9 +36,9 @@ function Taboot (apikey) {
                 Request(opts, cb);
             },
             item: {
-                get: function(id, cb){
+                get: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.blog.item.get&format=json&id=12345
-                    var opts = 'method=pnet.blog.item.get&id=' + id;
+                    var opts = 'method=pnet.blog.item.get&id=' + options.blogid;
                     Request(opts, cb);
                 }
             }
@@ -50,173 +50,173 @@ function Taboot (apikey) {
                 Request(opt, cb);
             },
             thread: {
-                get: function(threadid, cb){
+                get: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.forum.get&apikey=YOURAPIKEY&format=json
-                    var opt = 'method=pnet.forum.get&apikey=' + apikey + '&threadid=' + threadid;
+                    var opt = 'method=pnet.forum.get&apikey=' + apikey + '&threadid=' + options.threadid;
                     Request(opt, cb);
                 },
-                new: function(username, title, body, authkey, cb){
+                new: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.forum.thread.new&apikey=YOURAPIKEY&username=USERNAME&title=YOURTITLE&txt=YOUR+TEXT&authkey=AUTHKEY
-                    var opt = 'method=pnet.forum.thread.new&apikey=' + apikey + '&username=' + username + '&title=' + title + '&txt=' + body + '&authkey=' + authkey;
+                    var opt = 'method=pnet.forum.thread.new&apikey=' + apikey + '&username=' + options.username + '&title=' + options.title + '&txt=' + options.body + '&authkey=' + options.authkey;
                     Request(opt, cb);
                 },
-                respond: function(username, threadId, body, authkey, cb){
+                respond: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.forum.thread.respond&apikey=YOURAPIKEY&username=USERNAME&thread=12345678901&txt=YOUR+TEXT&authkey=AUTHKEY
-                    var opt = 'method=pnet.forum.thread.respond&apikey=' + apikey + '&username=' + username + '&thread=' + threadId + '&txt=' + body + '&authkey=' + authkey;
+                    var opt = 'method=pnet.forum.thread.respond&apikey=' + apikey + '&username=' + options.username + '&thread=' + options.threadId + '&txt=' + options.body + '&authkey=' + options.authkey;
                     Request(opt, cb);
                 }
             },
-            canpost: function(username, cb){
+            canpost: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.forum.canpost&apikey=YOURAPIKEY&username=USERNAME
-                var opt = 'method=pnet.forum.canpost&apikey=' + apikey + '&username=' + username;
+                var opt = 'method=pnet.forum.canpost&apikey=' + apikey + '&username=' + options.username;
                 Request(opt, cb);
             }
         },
         news: {
-            get: function(cb, pnetcb){
+            get: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.news.get&format=json&callback=YourCallbackFunction
-                var opt = 'method=pnet.news.get' + (pnetcb ? '&callback=' + pnetcb : '');
+                var opt = 'method=pnet.news.get' + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                 Request(opt, cb);
             },
             comments: {
-                get: function(cb, pnetcb){
+                get: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.news.comments.get&format=json&callback=YourCallbackFunction
-                    var opt = 'method=pnet.news.comments.get' + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.news.comments.get' + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 }   
             }
         },
         reviews: {
-            recent: function(cb, pnetcb){
+            recent: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.reviews.recent&format=json&callback=YourCallbackFunction
-                var opt = 'method=pnet.reviews.recent' + (pnetcb ? '&callback=' + pnetcb : '');
+                var opt = 'method=pnet.reviews.recent' + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                 Request(opt, cb);
             },
-            query: function(username, showdate, cb, pnetcb){
+            query: function(options, cb){
                 // showdate (YYYY-mm-dd)
                 // https://api.phish.net/api.js?api=2.0&method=pnet.reviews.query&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction
-                var opt = 'method=pnet.reviews.query&apikey='+ apikey + (username ? '&username=' + username : '') + (showdate ? '&showdate=' + showdate : '') + (pnetcb ? '&callback=' + pnetcb : '');
+                var opt = 'method=pnet.reviews.query&apikey='+ apikey + (options.username ? '&username=' + options.username : '') + (options.showdate ? '&showdate=' + options.showdate : '') + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                 Request(opt, cb);
             }
         },
         shows: {
             setlists: {
-                latest: function(linked, cb, pnetcb){
+                latest: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.shows.setlists.latest&format=json&callback=YourCallbackFunction
-                    var opt = 'method=pnet.shows.setlists.latest' + (linked ? '&linked=' + linked : '') + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.shows.setlists.latest' + (options.linked ? '&linked=' + options.linked : '') + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 },
-                random: function(cb, pnetcb){
+                random: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.shows.setlists.random&format=json&callback=YourCallbackFunction
-                    var opt = 'method=pnet.shows.setlists.random' + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.shows.setlists.random' + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 },
-                recent: function(cb, pnetcb){
+                recent: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.shows.setlists.recent&format=json&callback=YourCallbackFunction
-                    var opt = 'method=pnet.shows.setlists.recent' + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.shows.setlists.recent' + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 },
-                get: function(showdate, showid, cb, pnetcb){
+                get: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.shows.setlists.get&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction
-                    var opt = 'method=pnet.shows.setlists.get&apikey=' + apikey + (showdate ? '&showdate=' + showdate : '') + (showid ? '&showid=' + showid : '') + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.shows.setlists.get&apikey=' + apikey + (options.showdate ? '&showdate=' + options.showdate : '') + (options.showid ? '&showid=' + options.showid : '') + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 },
-                tiph: function(cb, pnetcb){
+                tiph: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.shows.setlists.tiph&format=json&callback=YourCallbackFunction
-                    var opt = 'method=pnet.shows.setlists.tiph' + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.shows.setlists.tiph' + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 }
             },
             links: {
-                get: function(showId, cb, pnetcb){
+                get: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.shows.links.get&format=json&apikey=YOUR-API-KEY&&year=2016&callback=YourCallbackFunction
-                    var opt = 'method=pnet.shows.links.get&format=json&apikey=YOUR-API-KEY&&showid=' + showId + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.shows.links.get&apikey=' + apikey + '&showid=' + options.showid + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 }
             },
-            upcoming: function(cb, pnetcb){
+            upcoming: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.shows.upcoming&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction
-                var opt = 'method=pnet.shows.upcoming&apikey=' + apikey + (pnetcb ? '&callback=' + pnetcb : '');
+                var opt = 'method=pnet.shows.upcoming&apikey=' + apikey + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                 Request(opt, cb);
             },
-            query: function(year, venueid, state, country, month, day, artist, showids, cb, pnetcb){
+            query: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.shows.query&format=json&apikey=YOUR-API-KEY&&year=2016&callback=YourCallbackFunction
                 // Query options: http://api.phish.net/docu/#p=pnet.shows.query
                 
                 // Optional params
-                var vyear = year ? '&year=' + year : "";
-                var vvenueid = venueid ? '&venueid=' + venueid : "";
-                var vstate = state ? '&state=' + state : "";
-                var vcountry = country ? '&country=' + country : "";
-                var vmonth = month ? '&month=' + month : "";
-                var vday = day ? '&day=' + day : "";
-                var vartist = artist ? '&artist=' + artist : "";
-                var vshowids = showids ? '&showids=' + showids : "";
+                var vyear = options.year ? '&year=' + options.year : "";
+                var vvenueid = options.venueid ? '&venueid=' + options.venueid : "";
+                var vstate = options.state ? '&state=' + options.state : "";
+                var vcountry = options.country ? '&country=' + options.country : "";
+                var vmonth = options.month ? '&month=' + options.month : "";
+                var vday = options.day ? '&day=' + options.day : "";
+                var vartist = options.artist ? '&artist=' + options.artist : "";
+                var vshowids = options.showids ? '&showids=' + options.showids : "";
                 
-                var opt = 'method=pnet.shows.query&apikey=' + apikey + vyear + vvenueid + vstate + vcountry + vmonth + vday + vartist + vshowids + (pnetcb ? '&callback=' + pnetcb : '');
+                var opt = 'method=pnet.shows.query&apikey=' + apikey + vyear + vvenueid + vstate + vcountry + vmonth + vday + vartist + vshowids + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                 Request(opt, cb);
             }
         },
         collections: {
-            get: function(collectionid, cb, pnetcb){
+            get: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.collections.get&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction&collectionid=1294152220
-                var opt = 'method=pnet.collections.get&apikey=' + apikey + '&collectionid='+ collectionid + (pnetcb ? '&callback=' + pnetcb : '');
+                var opt = 'method=pnet.collections.get&apikey=' + apikey + '&collectionid='+ options.collectionid + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                 Request(opt, cb);
             },
-            query: function(userid, cb, pnetcb){
+            query: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.collections.query&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction&uid=USERID
-                var opt = 'method=pnet.collections.query&apikey=' + apikey + 'uid=' + userid + (pnetcb ? '&callback=' + pnetcb : '');
+                var opt = 'method=pnet.collections.query&apikey=' + apikey + 'uid=' + options.userid + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                 Request(opt, cb);
             }
         },
         user: {
             username: {
-                check: function(username, cb){
+                check: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.user.username.check&apikey=YOUR-API-KEY&username=REQ-USERNAME
-                    var opt = 'method=pnet.user.username.check&apikey=' + apikey + '&username=' + username;
+                    var opt = 'method=pnet.user.username.check&apikey=' + apikey + '&username=' + options.username;
                     Request(opt, cb);
                 }
             },
-            register: function(username, pwd, realname, cb){
+            register: function(options, cb){
                 // https://api.phish.net/api.js?api=2.0&method=pnet.user.register&apikey=YOUR-API-KEY&username=REQ-USERNAME&passwd=REQ-PASSWORD&realname=John+Q+Phishead
-                var opt = 'method=pnet.user.register&apikey=' + apikey + '&username=' + username + '&passwd=' + pwd + '&realname=' + realname;
+                var opt = 'method=pnet.user.register&apikey=' + apikey + '&username=' + options.username + '&passwd=' + options.pwd + '&realname=' + options.realname;
                 Request(opt, cb);
             },
-            get: function(cb){
+            get: function(options, cb){
                 // Dead? http://api.phish.net/docu/#p=pnet.user.get
                 // Request(opt, cb);
                 cb("Error: Not Implemented", null);
             },
             uid: {
-                get: function(username, cb){
+                get: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.user.uid.get&apikey=YOUR-API-KEY&username=USERNAME
-                    var opt = 'method=pnet.user.uid.get&apikey=' + apikey + '&username=' + username;
+                    var opt = 'method=pnet.user.uid.get&apikey=' + apikey + '&username=' + options.username;
                     Request(opt, cb);
                 }
             },
             myshows: {
-                get: function(username, usernames, cb, pnetcb){
+                get: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.user.myshows.get&format=json&apikey=YOUR-API-KEY&callback=YourCallbackFunction
-                    var opt = 'method=pnet.user.myshows.get&apikey=' + apikey + '&username=' + username + (usernames ? '&usernames=' + usernames : '') + (pnetcb ? '&callback=' + pnetcb : '');
+                    var opt = 'method=pnet.user.myshows.get&apikey=' + apikey + '&username=' + options.username + (options.usernames ? '&usernames=' + options.usernames : '') + (options.pnetcb ? '&callback=' + options.pnetcb : '');
                     Request(opt, cb);
                 },
-                add: function(username, authkey, showdate, cb){
+                add: function(options, cb){
                     // showdate YYYY-mm-dd
                     // https://api.phish.net/api.js?api=2.0&method=pnet.user.myshows.add&apikey=YOURAPIKEY&username=USERNAME&authkey=AUTHKEY&showdate=1997-11-22
-                    var opt = 'method=pnet.user.myshows.add&apikey=' + apikey + '&username=' + username + '&authkey=' + authkey + '&showdate=' + showdate;
+                    var opt = 'method=pnet.user.myshows.add&apikey=' + apikey + '&username=' + options.username + '&authkey=' + options.authkey + '&showdate=' + options.showdate;
                     Request(opt, cb);
                 },
-                remove: function(username, authkey, showdate, transid, cb){
+                remove: function(options, cb){
                     // https://api.phish.net/api.js?api=2.0&method=pnet.user.myshows.remove&apikey=YOURAPIKEY&username=USERNAME&authkey=AUTHKEY&showdate=1997-11-22&transid=TRANSID
-                    var opt = 'method=pnet.user.myshows.remove&apikey=' + apikey + '&username=' + username + '&authkey=' + authkey + '&showdate=' + showdate + '&transid=' + transid;
+                    var opt = 'method=pnet.user.myshows.remove&apikey=' + apikey + '&username=' + options.username + '&authkey=' + options.authkey + '&showdate=' + options.showdate + '&transid=' + options.transid;
                     Request(opt, cb);
                 }
             },
-            rate: function(username, authkey, showdate, rating, cb){
+            rate: function(options, cb){
                 // showdate YYYY-mm-dd
                 // rating int 1-5
                 // https://api.phish.net/api.js?api=2.0&method=pnet.user.shows.rate&apikey=YOURAPIKEY&username=USERNAME&authkey=AUTHKEY&showdate=1997-11-22&rating=5
-                var opt = 'method=pnet.user.shows.rate&apikey=' + apikey + '&username=' + username + '&authkey=' + authkey + '&showdate=' + showdate + '&rating=' + rating;
+                var opt = 'method=pnet.user.shows.rate&apikey=' + apikey + '&username=' + options.username + '&authkey=' + options.authkey + '&showdate=' + options.showdate + '&rating=' + options.rating;
                 Request(opt, cb);
             }
         },

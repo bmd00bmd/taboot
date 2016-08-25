@@ -5,19 +5,23 @@ var chaiHttp = require('chai-http');
 
  describe('Public Tests', function() {
      
-    var apikey = '-';
+    var apikey = '';
  
     it("pnet.blog.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
+        // takes no options
         pnet.blog.get(function(err, data) {
-        expect(data).to.not.equal(undefined);
-        done();
+            expect(data).to.not.equal(undefined);
+            done();
         });
     });
     
     it("pnet.blog.item.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.blog.item.get('1471829356', function(err, data) {
+        var options = {
+            blogid: '1471829356'
+        }
+        pnet.blog.item.get(options, function(err, data) {
             expect(data['id']).to.equal('1471829356');
             done();
         });
@@ -25,7 +29,10 @@ var chaiHttp = require('chai-http');
     
     it("pnet.news.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.news.get(function(err, data) {
+        var options = {
+            pnetcb: undefined
+        }
+        pnet.news.get(options, function(err, data) {
             expect(data[0]['newsid']).to.be.above(0);
             done();
         })
@@ -33,7 +40,10 @@ var chaiHttp = require('chai-http');
     
     it("pnet.news.comments.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.news.comments.get(function(err, data) {
+        var options = {
+            pnetcb: undefined
+        }
+        pnet.news.comments.get(options, function(err, data) {
             expect(data[0]['commentid']).to.be.above(0);
             done();
         });
@@ -41,7 +51,10 @@ var chaiHttp = require('chai-http');
     
     it("pnet.reviews.recent()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.reviews.recent(function(err, data) {
+        var options = {
+            pnetcb: undefined
+        }
+        pnet.reviews.recent(options, function(err, data) {
             expect(data[0]['commentid']).to.be.above(0);
             done();
         });
@@ -49,7 +62,10 @@ var chaiHttp = require('chai-http');
     
     it("pnet.shows.upcoming()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.shows.upcoming(function(err, data) {
+        var options = {
+            pnetcb: undefined
+        }
+        pnet.shows.upcoming(options, function(err, data) {
             expect(data.length).to.be.above(1);
             done();
         });        
@@ -57,8 +73,11 @@ var chaiHttp = require('chai-http');
     
     it("pnet.shows.setlists.latest()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        var nonlinked = -1;
-        pnet.shows.setlists.latest(nonlinked, function(err, data) {
+        var options = {
+            nonlinked: -1,
+            pnetcb: undefined
+        }
+        pnet.shows.setlists.latest(options, function(err, data) {
             expect(data[0]['showid']).to.be.above(0);
             done();
         });
@@ -66,7 +85,10 @@ var chaiHttp = require('chai-http');
     
     it("pnet.shows.setlists.random()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.shows.setlists.random(function(err, data) {
+        var options = {
+            pnetcb: undefined
+        }
+        pnet.shows.setlists.random(options, function(err, data) {
             expect(data[0]['showid']).to.be.above(0);
             done();
         });
@@ -74,7 +96,10 @@ var chaiHttp = require('chai-http');
     
     it("pnet.shows.setlists.recent()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.shows.setlists.recent(function(err, data) {
+        var options = {
+            pnetcb: undefined
+        }
+        pnet.shows.setlists.recent(options, function(err, data) {
             expect(data[0]['showid']).to.be.above(0);
             done();
         });
@@ -82,7 +107,10 @@ var chaiHttp = require('chai-http');
     
     it("pnet.shows.setlists.tiph()", function(done) {
         var pnet = new Taboot(apikey).pnet;
-        pnet.shows.setlists.tiph(function(err, data) {
+        var options = {
+            pnetcb: undefined
+        }
+        pnet.shows.setlists.tiph(options, function(err, data) {
             expect(data[0]['showid']).to.be.above(0);
             done();
         });
@@ -90,6 +118,7 @@ var chaiHttp = require('chai-http');
     
     it("pnet.artists.get()", function(done) {
         var pnet = new Taboot(apikey).pnet;
+        // No options
         pnet.artists.get(function(err, data) {
             expect(data[0]['artist']).to.equal('Phish');
             done();
