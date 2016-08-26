@@ -6,6 +6,13 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
+  "keywords": [
+    "phish",
+    "taboot",
+    "music",
+    "setlist",
+    "wrapper"
+],
   "author": "Brent Dowdy",
   "license": "None",
   "devDependencies": {
