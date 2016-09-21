@@ -1,4 +1,4 @@
-# Update: v3.0 of Phish.net will soon be released, expected Oct 1, 2016
+# OCT 1, 2016: Phish.Net API v3.0 Release, v2.0 no longer supported.
 
 # taboot
 
